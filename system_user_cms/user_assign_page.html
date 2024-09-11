@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign PageContent</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optional custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- ヘッダーの読み込み -->
+    <div id="header-container"></div>
+
+    <!-- コンテンツエリア -->
+    <div class="container mt-4">
+        <h2>Assign PageContent</h2>
+
+        <!-- 検索窓 -->
+        <div class="input-group mb-3" style="max-width: 400px;">
+            <input type="text" class="form-control form-control-sm" placeholder="Search Contents" aria-label="Search Contents" aria-describedby="button-search">
+            <button class="btn btn-primary btn-sm" type="button" id="button-search">Search</button>
+        </div>
+
+        <!-- 絞り込み機能 -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <select class="form-select form-select-sm" aria-label="サプライヤー名">
+                    <option selected>サプライヤー名</option>
+                    <option value="1">商社A</option>
+                    <option value="2">商社B</option>
+                    <option value="3">商社C</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select form-select-sm" aria-label="選定状況">
+                    <option value="3">2次選定完了</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select form-select-sm" aria-label="新規・継続">
+                    <option value="1">新規</option>
+                    <option value="2">継続</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select form-select-sm" aria-label="更新日">
+                    <option selected>更新日</option>
+                    <option value="1">2024-09-01</option>
+                    <option value="2">2024-08-15</option>
+                    <option value="3">2024-07-25</option>
+                </select>
+            </div>
+        </div>
+        <!-- 登録商品数表示テーブル -->
+        <h6 class="mt-4">2次登録完了商品数表示</h6>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th><strong><small>２次選定完了</strong></small></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><small id="SecondSelectionComplete">20</small></td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- テーブルの表示行数選択とダウンロードボタン -->
+        <div class="row mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center">
+                    <label for="rowsPerPage" class="form-label me-2 mb-0">表示行数</label>
+                    <select class="form-select form-select-sm" id="rowsPerPage" style="width: auto;">
+                        <option value="10" selected>10</option>
+                        <option value="30">30</option>
+                        <option value="50">50</option>
+                    </select>
+                </div>
+                <div class="ms-auto">
+                    <button class="btn btn-outline-primary btn-sm me-2">Download PDF</button>
+                    <button class="btn btn-outline-secondary btn-sm">Download CSV</button>
+                    <!-- <button class="btn btn-primary btn-sm me-2" onclick="window.location.href='provider_content_register.html'">一括登録</button>-->
+                    <button class="btn btn-danger btn-sm me-2" onclick="showDeleteConfirmation()">一括ページ更新</button>
+                </div>
+                
+                <!-- 削除確認のポップアップ -->
+                <div id="deleteModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">一括ページ更新</h5>
+                                <button type="button" class="close" onclick="closeDeleteConfirmation()">
+                                    <span>&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>10点の商品のページを更新しても良いですか？</p> <!-- N点の商品数は動的に変える場合はJavaScriptで処理 -->
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" onclick="closeDeleteConfirmation()">NO</button>
+                                <button type="button" class="btn btn-danger">YES</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- コンテンツ管理テーブル -->
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Index</th>
+                    <th scope="col">商品 ID</th>
+                    <th scope="col">商品名</th>
+                    <th scope="col">サプライヤー名</th>
+                    <th scope="col">選定状況</th>
+                    <th scope="col">新規・継続</th>
+                    <th scope="col">更新日</th>
+                    <th scope="col">前回カタログ品番</th>
+                    <th scope="col">ページ入力</th>
+                    <th scope="col">番号入力</th>
+                    <th scope="col" class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>P001</td>
+                    <td>商品X</td>
+                    <td>商社A</td>
+                    <td>選定完了</td>
+                    <td>新規</td>
+                    <td>2024-09-01</td>
+                    <td>12345</td>
+                    <td><input type="number" class="form-control form-control-sm" value="10"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="101"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>P002</td>
+                    <td>商品Y</td>
+                    <td>商社B</td>
+                    <td>選定中</td>
+                    <td>継続</td>
+                    <td>2024-08-15</td>
+                    <td>23456</td>
+                    <td><input type="number" class="form-control form-control-sm" value="11"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="102"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>P003</td>
+                    <td>商品Z</td>
+                    <td>商社C</td>
+                    <td>一次選定</td>
+                    <td>新規</td>
+                    <td>2024-08-10</td>
+                    <td>34567</td>
+                    <td><input type="number" class="form-control form-control-sm" value="12"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="103"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>P004</td>
+                    <td>商品W</td>
+                    <td>商社A</td>
+                    <td>選定保留</td>
+                    <td>継続</td>
+                    <td>2024-07-25</td>
+                    <td>45678</td>
+                    <td><input type="number" class="form-control form-control-sm" value="13"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="104"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">5</th>
+                    <td>P005</td>
+                    <td>商品V</td>
+                    <td>商社B</td>
+                    <td>選定完了</td>
+                    <td>新規</td>
+                    <td>2024-07-05</td>
+                    <td>56789</td>
+                    <td><input type="number" class="form-control form-control-sm" value="14"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="105"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">6</th>
+                    <td>P006</td>
+                    <td>商品U</td>
+                    <td>商社C</td>
+                    <td>選定中</td>
+                    <td>継続</td>
+                    <td>2024-07-01</td>
+                    <td>67890</td>
+                    <td><input type="number" class="form-control form-control-sm" value="15"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="106"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">7</th>
+                    <td>P007</td>
+                    <td>商品T</td>
+                    <td>商社A</td>
+                    <td>選定完了</td>
+                    <td>新規</td>
+                    <td>2024-06-30</td>
+                    <td>78901</td>
+                    <td><input type="number" class="form-control form-control-sm" value="16"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="107"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">8</th>
+                    <td>P008</td>
+                    <td>商品S</td>
+                    <td>商社B</td>
+                    <td>一次選定</td>
+                    <td>継続</td>
+                    <td>2024-06-15</td>
+                    <td>89012</td>
+                    <td><input type="number" class="form-control form-control-sm" value="17"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="108"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">9</th>
+                    <td>P009</td>
+                    <td>商品R</td>
+                    <td>商社C</td>
+                    <td>選定保留</td>
+                    <td>新規</td>
+                    <td>2024-06-10</td>
+                    <td>90123</td>
+                    <td><input type="number" class="form-control form-control-sm" value="18"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="109"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">10</th>
+                    <td>P010</td>
+                    <td>商品Q</td>
+                    <td>商社A</td>
+                    <td>選定完了</td>
+                    <td>新規</td>
+                    <td>2024-06-01</td>
+                    <td>01234</td>
+                    <td><input type="number" class="form-control form-control-sm" value="19"></td>
+                    <td><input type="number" class="form-control form-control-sm" value="110"></td>
+                    <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+        <!-- ページネーション -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                </li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#">Next</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- フッターの読み込み -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style.js"></script>
+    
+    <!-- JavaScript to load header and footer -->
+    <script>
+        // user_header.html を読み込んで挿入
+        fetch('user_header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+
+        // user_footer.html を読み込んで挿入
+        fetch('user_footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+        
+            // カスタム設定を適用
+        document.addEventListener('DOMContentLoaded', () => {
+            applyCustomSettings();
+        });
+
+        // 削除確認ポップアップを表示
+    function showDeleteConfirmation() {
+        document.getElementById('deleteModal').style.display = 'block';
+    }
+
+    // 削除確認ポップアップを閉じる
+    function closeDeleteConfirmation() {
+        document.getElementById('deleteModal').style.display = 'none';
+    }
+
+    </script>
+</body>
+</html>

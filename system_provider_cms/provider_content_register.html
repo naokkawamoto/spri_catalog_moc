@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Provider Content Register</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optional custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- ヘッダーの読み込み -->
+    <div id="header-container"></div>
+
+    <!-- コンテンツエリア -->
+    <div class="container mt-4">
+        <h2>商品一括登録</h2>
+
+        <!-- サプライヤー選択 -->
+        <div class="mb-3">
+            <label for="supplierSelect" class="form-label">サプライヤー選択</label>
+            <select class="form-select" id="supplierSelect">
+                <option selected>サプライヤー名を選択</option>
+                <option value="1">商社A</option>
+                <option value="2">商社B</option>
+                <option value="3">商社C</option>
+            </select>
+        </div>
+
+        <!-- 新規・継続選択 -->
+        <div class="mb-3">
+            <label for="newOrContinuingSelect" class="form-label">新規・継続</label>
+            <select class="form-select" id="newOrContinuingSelect">
+                <option selected>新規・継続を選択</option>
+                <option value="1">新規</option>
+                <option value="2">継続</option>
+            </select>
+        </div>
+
+        <!-- CSVアップロード -->
+        <div class="mb-3">
+            <label for="csvUpload" class="form-label">CSVアップロード</label>
+            <input class="form-control" type="file" id="csvUpload">
+        </div>
+
+        <!-- 商品一括登録ボタン -->
+        <button class="btn btn-primary" onclick="showRegisterConfirmation()">商品一括登録</button>
+
+        <!-- 商品登録確認のポップアップ -->
+        <div id="registerModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">商品登録完了</h5>
+                        <button type="button" class="close" onclick="closeRegisterConfirmation()">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p id="registerMessage"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" onclick="closeRegisterConfirmation()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- フッターの読み込み -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style.js"></script>
+
+    <!-- JavaScript to load header and footer -->
+    <script>
+        // provider_header.html を読み込んで挿入
+        fetch('provider_header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+
+        // provider_footer.html を読み込んで挿入
+        fetch('provider_footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+
+        // 商品登録確認ポップアップを表示
+        function showRegisterConfirmation() {
+            var supplier = document.getElementById('supplierSelect').value;
+            var newOrContinuing = document.getElementById('newOrContinuingSelect').value;
+            var message = '';
+
+            if (supplier === '1') {
+                message = 'サプライヤー名: 商社A, 新規 10点の商品が登録されました。';
+            } else if (supplier === '2') {
+                message = 'サプライヤー名: 商社B, 継続 10点の商品が登録されました。';
+            } else if (supplier === '3') {
+                message = 'サプライヤー名: 商社C, 新規 10点の商品が登録されました。';
+            } else {
+                message = 'サプライヤー名が選択されていません。';
+            }
+
+            document.getElementById('registerMessage').innerText = message;
+            document.getElementById('registerModal').style.display = 'block';
+        }
+
+        // 商品登録確認ポップアップを閉じる
+        function closeRegisterConfirmation() {
+            document.getElementById('registerModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

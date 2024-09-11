@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Management</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Optional custom CSS -->
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <!-- ヘッダーの読み込み -->
+    <div id="header-container"></div>
+
+    <!-- コンテンツエリア -->
+    <div class="container mt-4">
+        <h2>商品詳細</h2>
+        <!-- テーブルの表示行数選択とダウンロードボタン -->
+        <div class="row mb-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="ms-auto">
+                    <button class="btn btn-outline-primary btn-sm me-2">Download PDF</button>
+                    <button class="btn btn-outline-secondary btn-sm">Download CSV</button>
+                    <button onclick="location.href='site_content_register.html'" class="btn btn-outline-info btn-sm">この商品をコピーして新規商品登録</button>
+                </div>
+            </div>
+        </div>
+        <!-- 基本情報セクション -->
+        <div class="card mb-4">
+            <div class="card-header">
+                基本情報
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="supplierName" class="form-label">サプライヤー名</label>
+                        <input type="text" class="form-control" id="supplierName" placeholder="サプライヤー名">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productName" class="form-label">商品名</label>
+                        <input type="text" class="form-control" id="productName" placeholder="商品名">
+                    </div>
+                    <div class="mb-3">
+                        <label for="productId" class="form-label">商品ID</label>
+                        <input type="text" class="form-control" id="productId" placeholder="商品ID">
+                    </div>
+                    <div class="mb-3">
+                        <label for="selectionStatus" class="form-label">選定状況</label>
+                        <select class="form-select form-select-sm" aria-label="選定状況">
+                            <option selected>選定状況</option>
+                            <option value="1">１次選定中</option>
+                            <option value="2">１次選定完了</option>
+                            <option value="3">2次選定完了</option>
+                            <option value="4">2次選定完了</option>
+                            <option value="5">保留</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="newOrContinuing" class="form-label">新規・継続</label>
+                        <select class="form-select form-select-sm" aria-label="新規・継続">
+                            <option value="1">新規</option>
+                            <option value="2">継続</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="updateDate" class="form-label">更新日</label>
+                        <input type="text" class="form-control" id="updateDate" placeholder="更新日">
+                    </div>
+                    <button type="submit" class="btn btn-primary">更新</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- １次選定申請情報セクション -->
+        <div class="card mb-4">
+            <div class="card-header">
+                １次選定申請情報
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="documentProductName" class="form-label">伝票用商品名</label>
+                        <input type="text" class="form-control" id="documentProductName" placeholder="伝票用商品名">
+                    </div>
+                    <div class="mb-3">
+                        <label for="documentKana" class="form-label">伝票用かな表記</label>
+                        <input type="text" class="form-control" id="documentKana" placeholder="伝票用かな表記">
+                    </div>
+                    <div class="mb-3">
+                        <label for="colorPattern" class="form-label">色柄</label>
+                        <input type="text" class="form-control" id="colorPattern" placeholder="色柄">
+                    </div>
+                    <div class="mb-3">
+                        <label for="continuationNo" class="form-label">継続NO.</label>
+                        <input type="text" class="form-control" id="continuationNo" placeholder="継続NO.">
+                    </div>
+                    <div class="mb-3">
+                        <label for="nextYearCatalogNo" class="form-label">次年度カタログNO.</label>
+                        <input type="text" class="form-control" id="nextYearCatalogNo" placeholder="次年度カタログNO.">
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">入数</label>
+                        <input type="text" class="form-control" id="quantity" placeholder="入数">
+                    </div>
+                    <div class="mb-3">
+                        <label for="priceBeforeTax" class="form-label">上代（税抜）</label>
+                        <input type="text" class="form-control" id="priceBeforeTax" placeholder="上代（税抜）">
+                    </div>
+                    <div class="mb-3">
+                        <label for="costBeforeTax" class="form-label">原価（税抜）</label>
+                        <input type="text" class="form-control" id="costBeforeTax" placeholder="原価（税抜）">
+                    </div>
+                    <div class="mb-3">
+                        <label for="costWithShipping" class="form-label">原価（送料込）</label>
+                        <input type="text" class="form-control" id="costWithShipping" placeholder="原価（送料込）">
+                    </div>
+                    <div class="mb-3">
+                        <label for="discountRate" class="form-label">掛け率</label>
+                        <input type="text" class="form-control" id="discountRate" placeholder="掛け率">
+                    </div>
+                    <button type="submit" class="btn btn-outline-primary">更新</button>
+                    <p>1次選定完了ステータスで更新ボタンが表示</p>
+                </form>
+            </div>
+        </div>
+
+        <!-- ２次選定申請情報セクション -->
+        <div class="card mb-4">
+            <div class="card-header">
+                ２次選定申請情報
+            </div>
+            <div class="card-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="secondSelectionField1" class="form-label">フィールド1</label>
+                        <input type="text" class="form-control" id="secondSelectionField1" placeholder="フィールド1">
+                    </div>
+                    <div class="mb-3">
+                        <label for="secondSelectionField2" class="form-label">フィールド2</label>
+                        <input type="text" class="form-control" id="secondSelectionField2" placeholder="フィールド2">
+                    </div>
+                    <!-- 他のフィールドを追加 -->
+                    <button type="submit" class="btn btn-outline-primary">更新</button>
+                    <p>2次選定完了ステータスで更新ボタンが表示</p>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- フッターの読み込み -->
+    <div id="footer-container"></div>
+
+    <!-- Bootstrap JS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../style.js"></script>
+    
+    <!-- JavaScript to load header and footer -->
+    <script>
+        // site_header.html を読み込んで挿入
+        fetch('site_header.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header-container').innerHTML = data;
+            });
+
+        // site_footer.html を読み込んで挿入
+        fetch('site_footer.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('footer-container').innerHTML = data;
+            });
+        
+            // カスタム設定を適用
+        document.addEventListener('DOMContentLoaded', () => {
+            applyCustomSettings();
+        });
+
+    </script>
+</body>
+</html>
