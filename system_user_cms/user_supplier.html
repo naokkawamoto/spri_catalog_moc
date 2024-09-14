@@ -17,7 +17,7 @@
 
     <!-- コンテンツエリア -->
     <div class="container mt-4">
-        <h2>Content Management</h2>
+        <h2>Supplier Management</h2>
 
         <!-- 検索窓 -->
         <div class="input-group mb-3" style="max-width: 400px;">
@@ -38,24 +38,9 @@
             </div>
             <div class="me-2">
                 <select class="form-select form-select-sm" aria-label="選定状況">
-                    <option value="1">１次選定中</option>
-                    <option value="2">１次選定完了</option>
-                    <option value="3">２次選定中</option>
-                    <option value="4">２次選定完了</option>
-                    <option value="5">保留</option>
-                </select>
-            </div>
-            <div class="me-2">
-                <select class="form-select form-select-sm" aria-label="新規・継続">
-                    <option value="1">新規</option>
-                    <option value="2">継続</option>
-                </select>
-            </div>
-            <div class="me-2">
-                <select class="form-select form-select-sm" aria-label="画像有無">
-                    <option selected>画像有無</option>
-                    <option value="1">有</option>
-                    <option value="2">無</option>
+                    <option value="1">ステータス</option>
+                    <option value="2">アクティブ</option>
+                    <option value="3">休止中</option>
                 </select>
             </div>
             <div class="me-2">
@@ -68,19 +53,14 @@
             </div>
         </div>
 
-        <!-- 登録商品数表示テーブル -->
-        <h6 class="mt-4">登録商品数表示</h6>
+        <!-- サプライヤー数表示テーブル -->
+        <h6 class="mt-4">サプライヤー数表示</h6>
         <table class="table table-bordered">
             <thead>
                 <tr>
                     <th><strong><small>総数</strong></small></th>
-                    <th><strong><small>新規登録数</strong></small></th>
-                    <th><strong><small>継続登録数</strong></small></th>
-                    <th><strong><small>１次選定中</strong></small></th>
-                    <th><strong><small>１次選定完了</strong></small></th>
-                    <th><strong><small>２次選定中</strong></small></th>
-                    <th><strong><small>２次選定完了</strong></small></th>
-                    <th><strong><small>保留</strong></small></th>
+                    <th><strong><small>アクティブ</strong></small></th>
+                    <th><strong><small>休止中</strong></small></th>
                 </tr>
             </thead>
             <tbody>
@@ -88,11 +68,6 @@
                     <td><small id="totalCount">150</small></td>
                     <td><small id="newCount">60</small></td>
                     <td><small id="continuingCount">90</small></td>
-                    <td><small id="firstSelectionPending">30</small></td>
-                    <td><small id="firstSelectionComplete">20</small></td>
-                    <td><small id="secondSelectionPending">40</small></td>
-                    <td><small id="secondSelectionComplete">45</small></td>
-                    <td><small id="onHold">5</small></td>
                 </tr>
             </tbody>
         </table>
@@ -109,9 +84,9 @@
                     </select>
                 </div>
                 <div class="ms-auto">
-                    <button class="btn btn-outline-primary btn-sm me-2">Proposal PDF</button>
                     <button class="btn btn-outline-secondary btn-sm">Download CSV</button>
-                    <button class="btn btn-primary btn-sm me-2" onclick="window.location.href='provider_content_register.html'">一括登録</button>
+                    <a href="provider_supplier_register.html" class="btn btn-primary btn-sm">新規登録</a>
+                    <button class="btn btn-warning btn-sm me-2" onclick="window.location.href='provider_supplier_bulk_register.html'">一括登録</button>
                     <button class="btn btn-danger btn-sm me-2" onclick="showDeleteConfirmation()">一括削除</button>
                 </div>
                 
@@ -126,7 +101,7 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>10点の商品を削除しますか？</p> <!-- N点の商品数は動的に変える場合はJavaScriptで処理 -->
+                                <p>10件のサプライヤーを削除しますか？</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" onclick="closeDeleteConfirmation()">NO</button>
@@ -138,18 +113,18 @@
             </div>
         </div>
 
-        
         <!-- コンテンツ管理テーブル -->
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">Index</th>
-                    <th scope="col">商品 ID</th>
-                    <th scope="col">商品名</th>
-                    <th scope="col">サプライヤー名</th>
-                    <th scope="col">選定状況</th>
-                    <th scope="col">新規・継続</th>
-                    <th scope="col">画像有無</th>
+                    <th scope="col">Supplier ID</th>
+                    <th scope="col">会社名</th>
+                    <th scope="col">住所</th>
+                    <th scope="col">電話番号</th>
+                    <th scope="col">担当者名</th>
+                    <th scope="col">担当者電話番号</th>
+                    <th scope="col">担当者メールアドレス</th>
                     <th scope="col">更新日</th>
                     <th scope="col">
                         <input type="checkbox" id="selectAll">
@@ -161,123 +136,133 @@
             <tbody>
                 <tr>
                     <th scope="row">1</th>
-                    <td>P001</td>
-                    <td>商品X</td>
-                    <td>商社A</td>
-                    <td>選定完了</td>
-                    <td>新規</td>
-                    <td>有</td>
+                    <td>S001</td>
+                    <td>サプライヤーA</td>
+                    <td>東京都千代田区1-1-1</td>
+                    <td>03-1234-5678</td>
+                    <td>山田 太郎</td>
+                    <td>080-1234-5678</td>
+                    <td>yamada@supplierA.com</td>
                     <td>2024-09-01</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">2</th>
-                    <td>P002</td>
-                    <td>商品Y</td>
-                    <td>商社B</td>
-                    <td>選定中</td>
-                    <td>継続</td>
-                    <td>有</td>
+                    <td>S002</td>
+                    <td>サプライヤーB</td>
+                    <td>大阪府大阪市2-2-2</td>
+                    <td>06-1234-5678</td>
+                    <td>鈴木 一郎</td>
+                    <td>090-1234-5678</td>
+                    <td>suzuki@supplierB.com</td>
                     <td>2024-08-15</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">3</th>
-                    <td>P003</td>
-                    <td>商品Z</td>
-                    <td>商社C</td>
-                    <td>一次選定</td>
-                    <td>新規</td>
-                    <td>有</td>
-                    <td>2024-08-10</td>
+                    <td>S003</td>
+                    <td>サプライヤーC</td>
+                    <td>愛知県名古屋市3-3-3</td>
+                    <td>052-1234-5678</td>
+                    <td>田中 次郎</td>
+                    <td>080-2234-5678</td>
+                    <td>tanaka@supplierC.com</td>
+                    <td>2024-07-25</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">4</th>
-                    <td>P004</td>
-                    <td>商品W</td>
-                    <td>商社A</td>
-                    <td>選定保留</td>
-                    <td>継続</td>
-                    <td>無</td>
-                    <td>2024-07-25</td>
+                    <td>S004</td>
+                    <td>サプライヤーD</td>
+                    <td>福岡県福岡市4-4-4</td>
+                    <td>092-1234-5678</td>
+                    <td>高橋 四郎</td>
+                    <td>080-3234-5678</td>
+                    <td>taka@supplierD.com</td>
+                    <td>2024-07-01</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">5</th>
-                    <td>P005</td>
-                    <td>商品V</td>
-                    <td>商社B</td>
-                    <td>選定完了</td>
-                    <td>新規</td>
-                    <td>無</td>
-                    <td>2024-07-05</td>
+                    <td>S005</td>
+                    <td>サプライヤーE</td>
+                    <td>北海道札幌市5-5-5</td>
+                    <td>011-1234-5678</td>
+                    <td>佐藤 五郎</td>
+                    <td>080-4234-5678</td>
+                    <td>sato@supplierE.com</td>
+                    <td>2024-06-30</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">6</th>
-                    <td>P006</td>
-                    <td>商品U</td>
-                    <td>商社C</td>
-                    <td>選定中</td>
-                    <td>継続</td>
-                    <td>無</td>
-                    <td>2024-07-01</td>
+                    <td>S006</td>
+                    <td>サプライヤーF</td>
+                    <td>広島県広島市6-6-6</td>
+                    <td>082-1234-5678</td>
+                    <td>山本 六郎</td>
+                    <td>080-5234-5678</td>
+                    <td>yama@supplierF.com</td>
+                    <td>2024-06-15</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">7</th>
-                    <td>P007</td>
-                    <td>商品T</td>
-                    <td>商社A</td>
-                    <td>選定完了</td>
-                    <td>新規</td>
-                    <td>無</td>
-                    <td>2024-06-30</td>
+                    <td>S007</td>
+                    <td>サプライヤーG</td>
+                    <td>宮城県仙台市7-7-7</td>
+                    <td>022-1234-5678</td>
+                    <td>中村 七郎</td>
+                    <td>080-6234-5678</td>
+                    <td>naka@supplierG.com</td>
+                    <td>2024-06-10</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">8</th>
-                    <td>P008</td>
-                    <td>商品S</td>
-                    <td>商社B</td>
-                    <td>一次選定</td>
-                    <td>継続</td>
-                    <td>無</td>
-                    <td>2024-06-15</td>
+                    <td>S008</td>
+                    <td>サプライヤーH</td>
+                    <td>千葉県千葉市8-8-8</td>
+                    <td>043-1234-5678</td>
+                    <td>小林 八郎</td>
+                    <td>080-7234-5678</td>
+                    <td>koba@supplierH.com</td>
+                    <td>2024-06-05</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">9</th>
-                    <td>P009</td>
-                    <td>商品R</td>
-                    <td>商社C</td>
-                    <td>選定保留</td>
-                    <td>新規</td>
-                    <td>無</td>
-                    <td>2024-06-10</td>
+                    <td>S009</td>
+                    <td>サプライヤーI</td>
+                    <td>沖縄県那覇市9-9-9</td>
+                    <td>098-1234-5678</td>
+                    <td>木村 九郎</td>
+                    <td>080-8234-5678</td>
+                    <td>kimura@supplierI.com</td>
+                    <td>2024-06-01</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
                     <th scope="row">10</th>
-                    <td>P010</td>
-                    <td>商品Q</td>
-                    <td>商社A</td>
-                    <td>選定完了</td>
-                    <td>新規</td>
-                    <td>無</td>
-                    <td>2024-06-01</td>
+                    <td>S010</td>
+                    <td>サプライヤーJ</td>
+                    <td>兵庫県神戸市10-10-10</td>
+                    <td>078-1234-5678</td>
+                    <td>松本 十郎</td>
+                    <td>080-9234-5678</td>
+                    <td>matsu@supplierJ.com</td>
+                    <td>2024-05-25</td>
                     <td><input type="checkbox" class="select-item"></td>
-                    <td class="text-end"><a href="provider_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
+                    <td class="text-end"><a href="provider_supplier_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
             </tbody>
         </table>
@@ -308,15 +293,15 @@
     
     <!-- JavaScript to load header and footer -->
     <script>
-        // provider_header.html を読み込んで挿入
-        fetch('provider_header.html')
+        // user_header.html を読み込んで挿入
+        fetch('user_header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
             });
 
-        // provider_footer.html を読み込んで挿入
-        fetch('provider_footer.html')
+        // user_footer.html を読み込んで挿入
+        fetch('user_footer.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;
@@ -326,16 +311,6 @@
         document.addEventListener('DOMContentLoaded', () => {
             applyCustomSettings();
         });
-
-        // 削除確認ポップアップを表示
-    function showDeleteConfirmation() {
-        document.getElementById('deleteModal').style.display = 'block';
-    }
-
-    // 削除確認ポップアップを閉じる
-    function closeDeleteConfirmation() {
-        document.getElementById('deleteModal').style.display = 'none';
-    }
 
     </script>
 </body>

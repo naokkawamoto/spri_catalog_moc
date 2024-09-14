@@ -17,8 +17,7 @@
 
     <!-- コンテンツエリア -->
     <div class="container mt-4">
-        <h2>カタログページ付け</h2>
-        <p><strong>2次選定完了</strong></p>
+        <h2>商品ステータス変更</h2>
 
         <!-- 検索窓 -->
         <div class="input-group mb-3" style="max-width: 400px;">
@@ -29,42 +28,45 @@
         <!-- 絞り込み機能 -->
         <div class="row mb-4">
             <div class="col-md-3">
-                <select class="form-select form-select-sm" aria-label="サプライヤー名">
-                    <option selected>サプライヤー名</option>
+                <p class="text-center">商社を選択</p>
+                <select class="form-select form-select-sm" aria-label="サプライヤー名" style="max-width: 350px;">
+                    <option selected>商社名</option>
                     <option value="1">商社A</option>
                     <option value="2">商社B</option>
                     <option value="3">商社C</option>
                 </select>
             </div>
             <div class="col-md-3">
-                <select class="form-select form-select-sm" aria-label="新規・継続">
-                    <option value="1">新規</option>
-                    <option value="2">継続</option>
+                <p class="text-center">現在のステータスを選択</p>
+                <select class="form-select form-select-sm" aria-label="選定状況" style="max-width: 350px;">
+                    <option value="1">１次選定中</option>
+                    <option value="2">１次選定完了</option>
+                    <option value="3">２次選定中</option>
+                    <option value="4">２次選定完了</option>
+                    <option value="5">保留</option>
                 </select>
             </div>
             <div class="col-md-3">
-                <select class="form-select form-select-sm" aria-label="更新日">
-                    <option selected>更新日</option>
-                    <option value="1">2024-09-01</option>
-                    <option value="2">2024-08-15</option>
-                    <option value="3">2024-07-25</option>
+                <p class="text-center">変更したいステータスを選択</p>
+                <select class="form-select form-select-sm" aria-label="選定状況" style="max-width: 350px;>
+                    <option value="1">１次選定中</option>
+                    <option value="2">１次選定完了</option>
+                    <option value="3">２次選定中</option>
+                    <option value="4">２次選定完了</option>
+                    <option value="5">保留</option>
                 </select>
             </div>
+            <div class="col-md-3">
+                <p>&nbsp;</p>
+                <!--<button class="btn btn-outline-primary btn-sm me-2">Download PDF</button>
+                <button class="btn btn-outline-secondary btn-sm">Download CSV</button>
+                <button class="btn btn-primary btn-sm me-2" onclick="window.location.href='provider_content_register.html'">一括登録</button>-->
+                <button class="btn btn-danger btn-sm me-2" onclick="showDeleteConfirmation()">ステータスを更新</button>
+            </div>
         </div>
-        <!-- 登録商品数表示テーブル -->
-        <h6 class="mt-4">商品数表示</h6>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th><strong><small>2次選定完了</strong></small></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><small id="SecondSelectionComplete">20</small></td>
-                </tr>
-            </tbody>
-        </table>
+        
+
+
         <!-- テーブルの表示行数選択とダウンロードボタン -->
         <div class="row mb-3">
             <div class="d-flex justify-content-between align-items-center">
@@ -77,25 +79,19 @@
                         <option value="all">all</option>
                     </select>
                 </div>
-                <div class="ms-auto">
-                    <!--<button class="btn btn-outline-primary btn-sm me-2">Download PDF</button>
-                    <button class="btn btn-outline-secondary btn-sm">Download CSV</button>
-                    <button class="btn btn-primary btn-sm me-2" onclick="window.location.href='provider_content_register.html'">一括登録</button>-->
-                    <button class="btn btn-danger btn-sm me-2" onclick="showDeleteConfirmation()">一括ページ更新</button>
-                </div>
                 
                 <!-- 削除確認のポップアップ -->
                 <div id="deleteModal" class="modal" tabindex="-1" role="dialog" style="display:none;">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">一括ページ更新</h5>
+                                <h5 class="modal-title">一括ステータス変更</h5>
                                 <button type="button" class="close" onclick="closeDeleteConfirmation()">
                                     <span>&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                <p>10点の商品のページを更新しても良いですか？</p> <!-- N点の商品数は動的に変える場合はJavaScriptで処理 -->
+                                <p><strong>商社A</strong>の10点の商品を<br><strong>一次選定</strong>から<br><strong>一次選定中</strong>へ<br>変更しても良いですか？<br>YESボタンを押すと<strong>商社A</strong>へ<strong>確認メール</strong>が送信されます。</p> <!-- N点の商品数は動的に変える場合はJavaScriptで処理 -->
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" onclick="closeDeleteConfirmation()">NO</button>
@@ -119,9 +115,10 @@
                     <th scope="col">選定状況</th>
                     <th scope="col">新規・継続</th>
                     <th scope="col">更新日</th>
-                    <th scope="col">前回カタログ品番</th>
-                    <th scope="col">ページ入力</th>
-                    <th scope="col">番号入力</th>
+                    <th scope="col">
+                        <input type="checkbox" id="selectAll">
+                        全て選択
+                    </th>
                     <th scope="col" class="text-end">Actions</th>
                 </tr>
             </thead>
@@ -134,9 +131,7 @@
                     <td>2次選定完了</td>
                     <td>新規</td>
                     <td>2024-09-01</td>
-                    <td>12345</td>
-                    <td><input type="number" class="form-control form-control-sm" value="10"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="101"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -147,9 +142,7 @@
                     <td>2次選定完了</td>
                     <td>継続</td>
                     <td>2024-08-15</td>
-                    <td>23456</td>
-                    <td><input type="number" class="form-control form-control-sm" value="11"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="102"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -160,9 +153,7 @@
                     <td>2次選定完了</td>
                     <td>新規</td>
                     <td>2024-08-10</td>
-                    <td>34567</td>
-                    <td><input type="number" class="form-control form-control-sm" value="12"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="103"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -173,9 +164,7 @@
                     <td>2次選定完了</td>
                     <td>継続</td>
                     <td>2024-07-25</td>
-                    <td>45678</td>
-                    <td><input type="number" class="form-control form-control-sm" value="13"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="104"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -186,9 +175,7 @@
                     <td>2次選定完了</td>
                     <td>新規</td>
                     <td>2024-07-05</td>
-                    <td>56789</td>
-                    <td><input type="number" class="form-control form-control-sm" value="14"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="105"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -199,9 +186,7 @@
                     <td>2次選定完了</td>
                     <td>継続</td>
                     <td>2024-07-01</td>
-                    <td>67890</td>
-                    <td><input type="number" class="form-control form-control-sm" value="15"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="106"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -212,9 +197,7 @@
                     <td>2次選定完了</td>
                     <td>新規</td>
                     <td>2024-06-30</td>
-                    <td>78901</td>
-                    <td><input type="number" class="form-control form-control-sm" value="16"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="107"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -225,9 +208,7 @@
                     <td>2次選定完了</td>
                     <td>継続</td>
                     <td>2024-06-15</td>
-                    <td>89012</td>
-                    <td><input type="number" class="form-control form-control-sm" value="17"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="108"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -238,9 +219,7 @@
                     <td>2次選定完了</td>
                     <td>新規</td>
                     <td>2024-06-10</td>
-                    <td>90123</td>
-                    <td><input type="number" class="form-control form-control-sm" value="18"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="109"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
                 <tr>
@@ -251,9 +230,7 @@
                     <td>2次選定完了</td>
                     <td>新規</td>
                     <td>2024-06-01</td>
-                    <td>01234</td>
-                    <td><input type="number" class="form-control form-control-sm" value="19"></td>
-                    <td><input type="number" class="form-control form-control-sm" value="110"></td>
+                    <td><input type="checkbox" class="select-item"></td>
                     <td class="text-end"><a href="user_content_details.html" class="btn btn-primary btn-sm">Details</a></td>
                 </tr>
             </tbody>

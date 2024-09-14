@@ -16,17 +16,9 @@
     <div id="header-container"></div>
 
     <!-- コンテンツエリア -->
-    <div class="container mt-4">
-        <h2>商品一括登録</h2>
-        <!-- 新規・継続選択 -->
-        <div class="mb-3">
-            <label for="newOrContinuingSelect" class="form-label">新規・継続</label>
-            <select class="form-select" id="newOrContinuingSelect">
-                <option selected>新規・継続を選択</option>
-                <option value="1">新規</option>
-                <option value="2">継続</option>
-            </select>
-        </div>
+    <div class="container my-4">
+        <h2>サプライヤー一括登録</h2>
+
 
         <!-- CSVアップロード -->
         <div class="mb-3">
@@ -68,15 +60,15 @@
 
     <!-- JavaScript to load header and footer -->
     <script>
-        // site_header.html を読み込んで挿入
-        fetch('site_header.html')
+        // provider_header.html を読み込んで挿入
+        fetch('provider_header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
             });
 
-        // site_footer.html を読み込んで挿入
-        fetch('site_footer.html')
+        // provider_footer.html を読み込んで挿入
+        fetch('provider_footer.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;

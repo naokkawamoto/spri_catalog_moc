@@ -18,18 +18,6 @@
     <!-- コンテンツエリア -->
     <div class="container my-4">
         <h2>商品一括登録</h2>
-
-        <!-- サプライヤー選択 -->
-        <div class="mb-3">
-            <label for="supplierSelect" class="form-label">サプライヤー選択</label>
-            <select class="form-select" id="supplierSelect">
-                <option selected>サプライヤー名を選択</option>
-                <option value="1">商社A</option>
-                <option value="2">商社B</option>
-                <option value="3">商社C</option>
-            </select>
-        </div>
-
         <!-- 新規・継続選択 -->
         <div class="mb-3">
             <label for="newOrContinuingSelect" class="form-label">新規・継続</label>
@@ -80,15 +68,15 @@
 
     <!-- JavaScript to load header and footer -->
     <script>
-        // provider_header.html を読み込んで挿入
-        fetch('provider_header.html')
+        // site_header.html を読み込んで挿入
+        fetch('site_header.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('header-container').innerHTML = data;
             });
 
-        // provider_footer.html を読み込んで挿入
-        fetch('provider_footer.html')
+        // site_footer.html を読み込んで挿入
+        fetch('site_footer.html')
             .then(response => response.text())
             .then(data => {
                 document.getElementById('footer-container').innerHTML = data;
