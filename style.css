@@ -145,18 +145,3 @@ header nav ul li a:hover {
     transform: translateY(-10px);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
 }
-.product-card {
-    background-color: #007bff; /* 商品一覧ボタンの色 */
-}
-.supplier-card {
-    background-color: #28a745; /* 商社一覧ボタンの色 */
-}
-.bulk-card {
-    background-color: magenta; /* 商社一覧ボタンの色 */
-}
-.request-card {
-    background-color:gray; /* 商社一覧ボタンの色 */
-}
-.page-card {
-    background-color: lightskyblue; /* 商社一覧ボタンの色 */
-}
